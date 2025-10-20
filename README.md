@@ -5,6 +5,9 @@ C'è anche un file TypeScript che uso nei miei progetti Angular.
 
 ## Changelog
 
+### 1.1.1
+- migliorata la funzione MPUtils -> genericUpload
+
 ### 1.1.0
 - aggiunto vanilla_store.js
 - js_utils.js

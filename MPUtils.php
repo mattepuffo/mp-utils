@@ -540,6 +540,8 @@ class MPUtils {
   }
 
   /**
+   * Funzione per upload generico
+   *
    * @param $dir
    * @param string $uploadName
    * @param array $allowedExtensions
@@ -557,9 +559,23 @@ class MPUtils {
     }
 
     if (!isset($_FILES[$uploadName]) || $_FILES[$uploadName]['error'] !== UPLOAD_ERR_OK) {
+      $errorCode = $_FILES[$uploadName]['error'] ?? null;
+
+      $errorMessage = match ($errorCode) {
+        UPLOAD_ERR_INI_SIZE => 'Il file supera la dimensione massima definita in php.ini (upload_max_filesize).',
+        UPLOAD_ERR_FORM_SIZE => 'Il file supera la dimensione massima definita nel form HTML (MAX_FILE_SIZE).',
+        UPLOAD_ERR_PARTIAL => 'Il file è stato caricato solo parzialmente.',
+        UPLOAD_ERR_NO_FILE => 'Nessun file è stato caricato.',
+        UPLOAD_ERR_NO_TMP_DIR => 'Manca la cartella temporanea.',
+        UPLOAD_ERR_CANT_WRITE => 'Impossibile scrivere il file sul disco.',
+        UPLOAD_ERR_EXTENSION => 'Caricamento interrotto da un\'estensione PHP.',
+        default => 'Errore sconosciuto durante il caricamento del file.',
+      };
+
       return json_encode([
           'status' => 0,
-          'error' => 'Errore durante il caricamento del file.'
+          'error' => $errorMessage,
+          'code' => $errorCode,
       ]);
     }
 
@@ -587,6 +603,7 @@ class MPUtils {
     return json_encode([
         'status' => 1,
         'file' => "https://" . $_SERVER['HTTP_HOST'] . '/' . $uploadDir . '/' . $newFileName,
+        'url' => "https://" . $_SERVER['HTTP_HOST'] . '/' . $uploadDir . '/' . $newFileName,
         'file_name' => $newFileName,
     ]);
   }
