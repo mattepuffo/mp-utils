@@ -682,4 +682,20 @@ class MPUtils {
 
     return $diff / 3600;
   }
+
+  /**
+   * Converte le ore in secondi
+   * Accetta anche ore con decimali
+   *
+   * @param  float  $ore
+   * @return int
+   */
+  function oreInSecondi(float $ore): int {
+    $oreIntere = floor($ore);
+    $minuti = ($ore - $oreIntere) * 100;
+
+    $secondi = ($oreIntere * 3600) + ($minuti * 60);
+
+    return (int)$secondi;
+  }
 }

@@ -7,6 +7,7 @@ C'è anche un file TypeScript che uso nei miei progetti Angular.
 
 ### 1.2.0
 - aggiunta la funzione MPUtils -> calcolaOre
+- aggiunta la funzione MPUtils -> oreInSecondi
 
 ### 1.1.1
 - migliorata la funzione MPUtils -> genericUpload
