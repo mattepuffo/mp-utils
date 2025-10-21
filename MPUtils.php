@@ -656,4 +656,30 @@ class MPUtils {
 
     return $arrReturn;
   }
+
+  /**
+   * Funzione per calcolare le ore partendo da due date
+   *
+   * @param  string  $dataInizio
+   * @param  string  $dataFine
+   * @return float
+   */
+  function calcolaOre(string $dataInizio, string $dataFine): float {
+    $format = 'd-m-Y H:i';
+
+    $inizio = DateTime::createFromFormat($format, $dataInizio);
+    $fine = DateTime::createFromFormat($format, $dataFine);
+
+    if (!$inizio || !$fine) {
+      return 0;
+    }
+
+    $diff = $fine->getTimestamp() - $inizio->getTimestamp();
+
+    if ($diff <= 0) {
+      return 0;
+    }
+
+    return $diff / 3600;
+  }
 }

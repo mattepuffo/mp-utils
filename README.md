@@ -5,6 +5,9 @@ C'è anche un file TypeScript che uso nei miei progetti Angular.
 
 ## Changelog
 
+### 1.2.0
+- aggiunta la funzione MPUtils -> calcolaOre
+
 ### 1.1.1
 - migliorata la funzione MPUtils -> genericUpload
 
