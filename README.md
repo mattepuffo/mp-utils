@@ -5,6 +5,10 @@ C'è anche un file TypeScript che uso nei miei progetti Angular.
 
 ## Changelog
 
+### 1.3.0
+- aggiunta la funzione MPUtils -> hhmmssInOreDecimali
+- aggiunta la funzione MPUtils -> oreDecimaliInHHMMSS
+
 ### 1.2.0
 - aggiunta la funzione MPUtils -> calcolaOre
 - aggiunta la funzione MPUtils -> oreInSecondi

@@ -660,8 +660,8 @@ class MPUtils {
   /**
    * Funzione per calcolare le ore partendo da due date
    *
-   * @param  string  $dataInizio
-   * @param  string  $dataFine
+   * @param string $dataInizio
+   * @param string $dataFine
    * @return float
    */
   function calcolaOre(string $dataInizio, string $dataFine): float {
@@ -687,7 +687,7 @@ class MPUtils {
    * Converte le ore in secondi
    * Accetta anche ore con decimali
    *
-   * @param  float  $ore
+   * @param float $ore
    * @return int
    */
   function oreInSecondi(float $ore): int {
@@ -697,5 +697,38 @@ class MPUtils {
     $secondi = ($oreIntere * 3600) + ($minuti * 60);
 
     return (int)$secondi;
+  }
+
+  /**
+   * @param string $hhmmss
+   * @param int $decimali
+   * @return float
+   */
+  public function hhmmssInOreDecimali(string $hhmmss, int $decimali = 3): float {
+    [$ore, $minuti, $secondi] = explode(':', $hhmmss);
+    $oreDecimali = $ore + ($minuti / 60) + ($secondi / 3600);
+    return round($oreDecimali, $decimali);
+  }
+
+  /**
+   * @param float $oreDecimali
+   * @return string
+   */
+  public function oreDecimaliInHHMMSS(float $oreDecimali): string {
+    $ore = floor($oreDecimali);
+    $minutiDecimali = ($oreDecimali - $ore) * 60;
+    $minuti = floor($minutiDecimali);
+    $secondi = round(($minutiDecimali - $minuti) * 60);
+
+    if ($secondi === 60) {
+      $secondi = 0;
+      $minuti++;
+    }
+    if ($minuti === 60) {
+      $minuti = 0;
+      $ore++;
+    }
+
+    return sprintf('%02d:%02d:%02d', $ore, $minuti, $secondi);
   }
 }
