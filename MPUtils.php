@@ -731,4 +731,25 @@ class MPUtils {
 
     return sprintf('%02d:%02d:%02d', $ore, $minuti, $secondi);
   }
+
+  /**
+   * Merge di array rimuovendo duplicati
+   *
+   * @param  array  $array1
+   * @param  array  $array2
+   * @param  string  $key
+   * @return array
+   */
+  public function mergeUniqueByKey(array $array1, array $array2, string $key = 'id'): array {
+    $merged = array_merge($array1, $array2);
+
+    $unique = [];
+    foreach ($merged as $item) {
+      if (isset($item[$key])) {
+        $unique[$item[$key]] = $item;
+      }
+    }
+
+    return array_values($unique);
+  }
 }
