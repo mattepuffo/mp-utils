@@ -711,10 +711,11 @@ class MPUtils {
   }
 
   /**
-   * @param float $oreDecimali
+   * @param  float  $oreDecimali
+   * @param  bool  $viewSeconds
    * @return string
    */
-  public function oreDecimaliInHHMMSS(float $oreDecimali): string {
+  public function oreDecimaliInHHMMSS(float $oreDecimali, bool $viewSeconds = true): string {
     $ore = floor($oreDecimali);
     $minutiDecimali = ($oreDecimali - $ore) * 60;
     $minuti = floor($minutiDecimali);
@@ -729,7 +730,7 @@ class MPUtils {
       $ore++;
     }
 
-    return sprintf('%02d:%02d:%02d', $ore, $minuti, $secondi);
+    return ($viewSeconds) ? sprintf('%02d:%02d:%02d', $ore, $minuti, $secondi) : sprintf('%02d:%02d', $ore, $minuti);
   }
 
   /**

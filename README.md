@@ -5,6 +5,9 @@ C'è anche un file TypeScript che uso nei miei progetti Angular.
 
 ## Changelog
 
+### 1.4.1
+- modifica la funzione MPUtils -> oreDecimaliInHHMMSS
+
 ### 1.4.0
 - aggiunta la funzione MPUtils -> mergeUniqueByKey
 
