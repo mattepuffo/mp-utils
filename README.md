@@ -5,6 +5,9 @@ C'è anche un file TypeScript che uso nei miei progetti Angular.
 
 ## Changelog
 
+### 1.4.2
+- aggiunta funzione js_utils -> validatePassword
+
 ### 1.4.1
 - modifica la funzione MPUtils -> oreDecimaliInHHMMSS
 

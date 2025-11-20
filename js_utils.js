@@ -41,6 +41,28 @@ function validazioneEmail(email) {
   return regex.test(email);
 }
 
+/**
+ * Controlla la validità della password seguendo questi criteri:
+ * - deve contenere almeno N caratteri (8 default)
+ * - almeno un numero
+ * - almeno un carattere maiuscolo
+ * - almeno un carattere minuscolo
+ * - almeno un carattere speciale
+ *
+ * @param str
+ * @param minLength
+ * @returns {boolean}
+ */
+function validatePassword(str, minLength = 8) {
+  const hasMinLength = str.length >= minLength;
+  const hasNumber = /\d/.test(str);
+  const hasUppercase = /[A-Z]/.test(str);
+  const hasLowercase = /[a-z]/.test(str);
+  const hasSpecial = /[^A-Za-z0-9]/.test(str);
+
+  return hasMinLength && hasNumber && hasUppercase && hasLowercase && hasSpecial;
+}
+
 function detectMobile() {
   if (navigator.userAgent.match(/Android/i)
       || navigator.userAgent.match(/webOS/i)
