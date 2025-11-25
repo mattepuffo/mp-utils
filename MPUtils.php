@@ -753,4 +753,23 @@ class MPUtils {
 
     return array_values($unique);
   }
+
+  /**
+   * Ricerca all'interno di un array multidimensionale
+   *
+   * @param  array  $data --> array
+   * @param  string  $searchField --> campo "chiave" in cui cercare
+   * @param $searchValue --> valore da cercare
+   * @param  string  $returnField --> campo da visualizzare
+   * @return mixed|null
+   */
+  public function arrayGetField(array $data, string $searchField, $searchValue, string $returnField): mixed {
+    foreach ($data as $item) {
+      if (isset($item[$searchField]) && $item[$searchField] === $searchValue) {
+        return $item[$returnField] ?? null;
+      }
+    }
+
+    return null;
+  }
 }
