@@ -778,14 +778,17 @@ class MPUtils {
      * Esempio di utilizzo:
      *
      *  $json = json_encode([
-     *      'class' => \My\namespace\Service,
-     *      'method' => 'getsOccupazione',
-     *      'params' => ['D'],
+     *      'class' => \QLtech\app\users\services\UsersService,
+     *      'method' => 'getSummaryUserCoaching',
+     *      'params': ["@user.id"]
      *  ]);
      *  $genericHelpers = new GenericHelpers();
-     *  $result = $genericHelpers->executeFromJson($json);
+     *  $context = [
+     *      'user.id' => 1,
+     *  ];
+     *  $result = $genericHelpers->executeFromJson($json, context: $context);
      *  if ($result['status']) {
-     *      dump($result['data']);
+     *      dump($result['result']);
      *  } else {
      *      echo $result['error'];
      * }
@@ -793,9 +796,10 @@ class MPUtils {
      * @param string $json
      * @param bool $checkWhitelist
      * @param array $whitelist
+     * @param array $context
      * @return array
      */
-    public function executeFromJson(string $json, bool $checkWhitelist = false, array $whitelist = []): array {
+    public function executeFromJson(string $json, bool $checkWhitelist = false, array $whitelist = [], array $context = []): array {
         $data = json_decode($json, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
@@ -823,6 +827,22 @@ class MPUtils {
                 "data" => null,
                 "error" => "Params deve essere un array",
             ];
+        }
+
+        foreach ($params as $i => $param) {
+            if (is_string($param) && str_starts_with($param, '@')) {
+                $key = substr($param, 1);
+
+                if (!array_key_exists($key, $context)) {
+                    return [
+                        "status" => false,
+                        "data" => null,
+                        "error" => "Parametro di contesto mancante: $key",
+                    ];
+                }
+
+                $params[$i] = $context[$key];
+            }
         }
 
         if ($checkWhitelist) {
