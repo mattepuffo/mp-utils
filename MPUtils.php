@@ -778,7 +778,7 @@ class MPUtils {
      * Esempio di utilizzo:
      *
      *  $json = json_encode([
-     *      'class' => \My\namespace\Service::class,
+     *      'class' => \My\namespace\Service,
      *      'method' => 'getsOccupazione',
      *      'params' => ['D'],
      *  ]);
