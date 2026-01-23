@@ -5,6 +5,9 @@ C'è anche un file TypeScript che uso nei miei progetti Angular.
 
 ## Changelog
 
+### 1.5.1
+- aggiunta funzione MPUtils -> mapKeyValue
+
 ### 1.5.0
 - aggiunta funzione MPUtils -> executeFromJson
 

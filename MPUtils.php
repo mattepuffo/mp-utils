@@ -897,4 +897,23 @@ class MPUtils {
             ];
         }
     }
+
+    /**
+     * Appiattisce un array multi dimensionale
+     *
+     * @param array $items
+     * @return array
+     */
+    public function mapKeyValue(array $items): array {
+        $mapped = [];
+
+        foreach ($items as $item) {
+            if (isset($item['key'], $item['value'])) {
+                $mapped[$item['key']] = $item['value'];
+            }
+        }
+
+        return $mapped;
+    }
+
 }
