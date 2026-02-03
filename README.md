@@ -5,6 +5,9 @@ C'è anche un file TypeScript che uso nei miei progetti Angular.
 
 ## Changelog
 
+### 1.5.2
+- aggiunta funzione js_utils -> validaIbanItaliano
+- aggiornata funzione js_utils -> soloNumeri
 ### 1.5.1
 - aggiunta funzione MPUtils -> mapKeyValue
 

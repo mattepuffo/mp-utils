@@ -1,6 +1,58 @@
-function soloNumeri(evt) {
-  const charCode = (evt.which) ? evt.which : event.keyCode;
-  return !(charCode > 31 && (charCode < 48 || charCode > 57));
+/**
+ * Funziona di validazone IBAN italiano
+ *
+ * Possibile alternativa: ibantools
+ *
+ * @param iban
+ * @returns {boolean}
+ */
+function validaIbanItaliano(iban) {
+  // RIMUOVO SPAZI E CONVERTO IN MAIUSCOLO
+  iban = iban.replace(/\s/g, '').toUpperCase();
+
+  // CONTROLLO FORMATO BASE IBAN ITALIANO (IT + 2 CIFRE CHECK + 23 CARATTERI)
+  if (!/^IT\d{2}[A-Z]\d{10}[A-Z0-9]{12}$/.test(iban)) {
+    return false;
+  }
+
+  // ALGORITMO MOD-97 PER VALIDAZIONE CHECKSUM IBAN
+  const riorganizzato = iban.slice(4) + iban.slice(0, 4);
+  const numerico = riorganizzato.replace(/[A-Z]/g, char =>
+      (char.charCodeAt(0) - 55).toString()
+  );
+
+  // CALCOLO MODULO 97 SU STRINGHE LUNGHE
+  let resto = '';
+  for (let i = 0; i < numerico.length; i += 7) {
+    resto = (parseInt(resto + numerico.substr(i, 7)) % 97).toString();
+  }
+
+  return parseInt(resto) === 1;
+}
+
+/**
+ * Permette solo numeri in una input text
+ *
+ * @param evt
+ * @param permitExtra
+ * @returns {boolean}
+ */
+function soloNumeri(evt, permitExtra = false) {
+  const charCode = evt.keyCode || evt.which;
+
+  if (permitExtra) {
+    if ([8, 9, 27, 13, 46, 37, 38, 39, 40].includes(charCode)) {
+      return true;
+    }
+  }
+
+  // NUMERI TASTIERA PRINCIPALE (48-57) O NUMPAD (96-105)
+  if ((charCode >= 48 && charCode <= 57) || (charCode >= 96 && charCode <= 105)) {
+    return true;
+  }
+
+  evt.preventDefault();
+  return false;
 }
 
 function checkChar(evt) {
