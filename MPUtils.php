@@ -5,7 +5,7 @@
  *
  * @author Matteo Ferrone
  * @since 2026-01-21
- * @version 3.1.0
+ * @version 3.1.1
  */
 class MPUtils {
 
@@ -914,6 +914,49 @@ class MPUtils {
         }
 
         return $mapped;
+    }
+
+    /**
+     * Creazione slug incrementale
+     *
+     * ```
+     * $slugs = [
+     * 'form-28-aprile',
+     * 'form-28-aprile-1',
+     * 'form-28-aprile-3',
+     * ];
+     *
+     * echo generateSlug('form-28-aprile', $slugs);
+     * ```
+     *
+     * @param string $baseSlug
+     * @param array $existingSlugs
+     * @return string
+     */
+    public function generateSlug(string $baseSlug, array $existingSlugs): string {
+        if (!in_array($baseSlug, $existingSlugs, true)) {
+            return $baseSlug;
+        }
+
+        $numbers = [];
+
+        foreach ($existingSlugs as $slug) {
+            if (preg_match('/^' . preg_quote($baseSlug, '/') . '-(\d+)$/', $slug, $matches)) {
+                $numbers[] = (int)$matches[1];
+            }
+        }
+
+        sort($numbers);
+
+        $i = 1;
+        foreach ($numbers as $n) {
+            if ($n !== $i) {
+                break;
+            }
+            $i++;
+        }
+
+        return $baseSlug . '-' . $i;
     }
 
 }
