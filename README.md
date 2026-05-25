@@ -5,6 +5,9 @@ C'è anche un file TypeScript che uso nei miei progetti Angular.
 
 ## Changelog
 
+### 1.5.4
+- aggiunta funzione js_utils -> isEmpty
+
 ### 1.5.3
 - aggiunta funzione MPUtils -> generateSlug
 
