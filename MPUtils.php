@@ -4,8 +4,8 @@
  * Metodi di utilità
  *
  * @author Matteo Ferrone
- * @since 2026-01-21
- * @version 3.1.1
+ * @since 2026-06-12
+ * @version 3.1.2
  */
 class MPUtils {
 
@@ -959,4 +959,35 @@ class MPUtils {
         return $baseSlug . '-' . $i;
     }
 
+    /**
+     * Calcola minuti totali considerando le date e gli orari
+     *
+     * @param string $dataInizio
+     * @param string $oraInizio
+     * @param string $dataFine
+     * @param string $oraFine
+     * @return int
+     * @throws \DateMalformedStringException
+     */
+    public function calcolaMinuti(string $dataInizio, string $oraInizio, string $dataFine, string $oraFine): int {
+        $inizio = new DateTime($dataInizio . ' ' . $oraInizio);
+        $fine = new DateTime($dataFine . ' ' . $oraFine);
+
+        return (int)(($fine->getTimestamp() - $inizio->getTimestamp()) / 60);
+    }
+
+    /**
+     * Calcola minuti totali tra due DateTime
+     *
+     * @param string $inizio
+     * @param string $fine
+     * @return int
+     * @throws \DateMalformedStringException
+     */
+    function calcolaMinutiDateTime(string $inizio, string $fine): int {
+        $dtInizio = new DateTime($inizio);
+        $dtFine = new DateTime($fine);
+
+        return (int)(($dtFine->getTimestamp() - $dtInizio->getTimestamp()) / 60);
+    }
 }

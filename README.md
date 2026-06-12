@@ -5,6 +5,10 @@ C'è anche un file TypeScript che uso nei miei progetti Angular.
 
 ## Changelog
 
+### 1.5.5
+- aggiunta funzione MPUtils -> calcolaMinuti
+- aggiunta funzione MPUtils -> calcolaMinutiDateTime
+
 ### 1.5.4
 - aggiunta funzione js_utils -> isEmpty
 
