@@ -4,8 +4,8 @@
  * Metodi di utilità
  *
  * @author Matteo Ferrone
- * @since 2026-06-12
- * @version 3.1.2
+ * @since 2026-07-24
+ * @version 3.1.3
  */
 class MPUtils {
 
@@ -990,4 +990,123 @@ class MPUtils {
 
         return (int)(($dtFine->getTimestamp() - $dtInizio->getTimestamp()) / 60);
     }
+
+    /**
+     * Converte un numero in lettere
+     *
+     * @param $numero
+     * @return string
+     */
+    public function numeroInLettere($numero): string {
+        $numero = (int)$numero;
+
+        if ($numero === 0) {
+            return 'zero';
+        }
+
+        if ($numero < 0) {
+            return 'meno ' . self::numeroInLettere(abs($numero));
+        }
+
+        $unita = ['', 'uno', 'due', 'tre', 'quattro', 'cinque', 'sei', 'sette', 'otto', 'nove'];
+        $dieciDiciannove = ['dieci', 'undici', 'dodici', 'tredici', 'quattordici', 'quindici', 'sedici', 'diciassette', 'diciotto', 'diciannove'];
+        $decine = ['', '', 'venti', 'trenta', 'quaranta', 'cinquanta', 'sessanta', 'settanta', 'ottanta', 'novanta'];
+
+        $convertiCentinaia = function ($n) use ($unita, $dieciDiciannove, $decine) {
+            $testo = '';
+            $c = intdiv($n, 100);
+            $resto = $n % 100;
+
+            if ($c > 0) {
+                $testo .= ($c === 1) ? 'cento' : $unita[$c] . 'cento';
+            }
+
+            if ($resto > 0) {
+                if ($resto < 10) {
+                    $testo .= $unita[$resto];
+                } elseif ($resto < 20) {
+                    $testo .= $dieciDiciannove[$resto - 10];
+                } else {
+                    $d = intdiv($resto, 10);
+                    $u = $resto % 10;
+                    $parolaDecina = $decine[$d];
+
+                    if ($u === 1 || $u === 8) {
+                        $parolaDecina = substr($parolaDecina, 0, -1);
+                    }
+
+                    $testo .= $parolaDecina . $unita[$u];
+                }
+            }
+
+            return $testo;
+        };
+
+        $miliardi = intdiv($numero, 1000000000);
+        $resto = $numero % 1000000000;
+
+        $milioni = intdiv($resto, 1000000);
+        $resto = $resto % 1000000;
+
+        $migliaia = intdiv($resto, 1000);
+        $unitaFinali = $resto % 1000;
+
+        $risultato = '';
+
+        if ($miliardi > 0) {
+            $risultato .= ($miliardi === 1) ? 'un miliardo' : $convertiCentinaia($miliardi) . ' miliardi';
+        }
+
+        if ($milioni > 0) {
+            $risultato .= ($milioni === 1) ? ' un milione' : ' ' . $convertiCentinaia($milioni) . ' milioni';
+        }
+
+        if ($migliaia > 0) {
+            $risultato .= ($migliaia === 1) ? ' mille' : ' ' . $convertiCentinaia($migliaia) . 'mila';
+        }
+
+        if ($unitaFinali > 0) {
+            $risultato .= ' ' . $convertiCentinaia($unitaFinali);
+        }
+
+        return trim($risultato);
+    }
+
+    /**
+     * Converte importo in lettere
+     *
+     * @param $importo
+     * @return string
+     */
+    public function importoInLettere($importo): string {
+        $importo = number_format((float)$importo, 2, '.', '');
+
+        [$parteIntera, $parteDecimale] = explode('.', $importo);
+
+        $parteIntera = (int)$parteIntera;
+        $centesimi = (int)$parteDecimale;
+
+        if ($parteIntera === 0) {
+            $testoEuro = 'zero euro';
+        } elseif ($parteIntera === 1) {
+            $testoEuro = 'un euro';
+        } else {
+            $testoEuro = self::numeroInLettere($parteIntera) . ' euro';
+        }
+
+        $risultato = $testoEuro;
+
+        if ($centesimi > 0) {
+            if ($centesimi === 1) {
+                $testoCentesimi = 'un centesimo';
+            } else {
+                $testoCentesimi = self::numeroInLettere($centesimi) . ' centesimi';
+            }
+
+            $risultato .= ' e ' . $testoCentesimi;
+        }
+
+        return $risultato;
+    }
+
 }
