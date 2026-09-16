@@ -188,3 +188,24 @@ function isEmpty(value) {
     if (typeof value === 'object') return Object.keys(value).length === 0;
     return false;
 }
+
+/**
+ * Funzione per download di un file tramite AJAX
+ *
+ * @param url
+ * @param outputFile
+ * @returns {Promise<void>}
+ */
+async function downloadFileAjax(url, outputFile) {
+    let resp = await fetch(url);
+    let data = await resp.blob();
+    const file = window.URL.createObjectURL(data);
+
+    const a = document.createElement('a');
+    a.href = file;
+    a.download = outputFile;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(file);
+}

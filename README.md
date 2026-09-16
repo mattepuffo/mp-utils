@@ -5,10 +5,13 @@ C'è anche un file TypeScript che uso nei miei progetti Angular.
 
 ## Changelog
 
+### 1.5.7
+- aggiunta funzione js_utils -> downloadFileAjax
+
 ### 1.5.6
 - aggiunta funzione MPUtils -> numeroInLettere
 - aggiunta funzione MPUtils -> importoInLettere
-- 
+
 ### 1.5.5
 - aggiunta funzione MPUtils -> calcolaMinuti
 - aggiunta funzione MPUtils -> calcolaMinutiDateTime
