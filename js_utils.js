@@ -209,3 +209,26 @@ async function downloadFileAjax(url, outputFile) {
     document.body.removeChild(a);
     window.URL.revokeObjectURL(file);
 }
+
+/**
+ * Blocca la UI
+ * Richiede anche questo CSS
+ * #overlay {
+ *     position: fixed;
+ *     inset: 0;
+ *     background: rgba(0,0,0,0.4);
+ *     z-index: 9999;
+ * }
+ */
+function blockUI() {
+    const overlay = document.createElement('div');
+    overlay.id = 'overlay';
+    document.body.appendChild(overlay);
+}
+
+/**
+ * Sblocca la UI
+ */
+function unblockUI() {
+    document.getElementById('overlay')?.remove();
+}

@@ -5,6 +5,10 @@ C'è anche un file TypeScript che uso nei miei progetti Angular.
 
 ## Changelog
 
+### 15.8
+- aggiunta funzione js_utils -> blockUI
+- aggiunta funzione js_utils -> unblockUI
+
 ### 1.5.7
 - aggiunta funzione js_utils -> downloadFileAjax
 
