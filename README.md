@@ -5,6 +5,9 @@ C'è anche un file TypeScript che uso nei miei progetti Angular.
 
 ## Changelog
 
+### 15.9
+- aggiunta funzione js_utils -> validaFormattaJSON
+
 ### 15.8
 - aggiunta funzione js_utils -> blockUI
 - aggiunta funzione js_utils -> unblockUI

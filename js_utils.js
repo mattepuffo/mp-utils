@@ -232,3 +232,67 @@ function blockUI() {
 function unblockUI() {
     document.getElementById('overlay')?.remove();
 }
+
+/**
+ * Valida una stringa JSON, la formatta e la visualizza in un div
+ *
+ * @param {string} jsonString - La stringa JSON da validare
+ * @param {string|HTMLElement} target - ID del div oppure l'elemento DOM stesso
+ * @returns {boolean} true se il JSON è valido, false altrimenti
+ */
+function validaFormattaJSON(jsonString, target) {
+    // Recupera l'elemento target
+    const div = typeof target === 'string'
+        ? document.getElementById(target)
+        : target;
+
+    if (!div) {
+        console.error('Elemento target non trovato');
+        return false;
+    }
+
+    try {
+        // 1. Valida e parsa il JSON
+        const parsed = JSON.parse(jsonString);
+
+        // 2. Formatta con indentazione di 2 spazi
+        const formatted = JSON.stringify(parsed, null, 2);
+
+        // 3. Visualizza nel div
+        div.innerHTML = `<pre style="
+                            background: #1e1e1e;
+                            color: #d4d4d4;
+                            padding: 16px;
+                            border-radius: 8px;
+                            overflow: auto;
+                            font-family: 'Consolas', 'Monaco', monospace;
+                            font-size: 14px;
+                            line-height: 1.5;
+                            white-space: pre-wrap;">
+                                ${escapeHtml(formatted)}
+                         </pre>`;
+
+        return true;
+
+    } catch (error) {
+        // JSON non valido
+        div.innerHTML = `<div style="
+                            background: #2d1b1b;
+                            color: #ff6b6b;
+                            padding: 16px;
+                            border-radius: 8px;
+                            font-family: sans-serif;">
+                                <strong>JSON non valido</strong><br>
+                                ${escapeHtml(error.message)}
+                         </div>`;
+
+        return false;
+    }
+}
+
+// Funzione di utilità per evitare XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
