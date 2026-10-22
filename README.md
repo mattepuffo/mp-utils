@@ -5,10 +5,13 @@ C'è anche un file TypeScript che uso nei miei progetti Angular.
 
 ## Changelog
 
-### 15.9
+### 1.5.10
+- aggiunta funzione MPUtils -> callJsCss
+- 
+### 1.5.9
 - aggiunta funzione js_utils -> validaFormattaJSON
 
-### 15.8
+### 1.5.8
 - aggiunta funzione js_utils -> blockUI
 - aggiunta funzione js_utils -> unblockUI
 

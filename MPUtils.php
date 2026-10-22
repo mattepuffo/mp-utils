@@ -4,8 +4,6 @@
  * Metodi di utilità
  *
  * @author Matteo Ferrone
- * @since 2026-07-24
- * @version 3.1.3
  */
 class MPUtils {
 
@@ -1107,6 +1105,19 @@ class MPUtils {
         }
 
         return $risultato;
+    }
+
+    /**
+     * Funzione per richiamare CSS o JS con versione dinamica
+     *
+     * @param $baseUrl
+     * @param $file
+     * @param $dir
+     * @return string
+     */
+    public static function callJsCss($baseUrl, $file, $dir): string {
+        $localPath = $_SERVER['DOCUMENT_ROOT'] . "/$dir" . str_replace($_SERVER['HTTP_HOST'], '', $file);
+        return $baseUrl . "$dir" . $file . "?v=" . filemtime($localPath);
     }
 
 }
